@@ -1,0 +1,22 @@
+{
+  "server": {
+    "address": "127.0.0.1",
+    "port": 2000,
+    "threads": 1
+  },
+
+  "databases": [
+    {
+      "backend": "redis",
+      "address": "127.0.0.1",
+      "port": 6379
+    }
+  ],
+
+  "html": {
+    "redirect": "/Users/thenikvas/Documents/dev/github-opensourse/URLShorterner/data/redirect_wait.html",
+    "error404": "/Users/thenikvas/Documents/dev/github-opensourse/URLShorterner/data/error404.html"
+  },
+
+  "log_folder": "log"
+}
