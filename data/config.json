@@ -14,8 +14,8 @@
   ],
 
   "html": {
-    "redirect": "/Users/thenikvas/Documents/dev/github-opensourse/URLShorterner/data/redirect_wait.html",
-    "error404": "/Users/thenikvas/Documents/dev/github-opensourse/URLShorterner/data/error404.html"
+    "redirect": "../data/redirect_wait.html",
+    "error404": "../data/error404.html"
   },
 
   "log_folder": "log"
