@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(shorturl)
 
+set(CMAKE_CXX_STANDARD 11)
+
 include(GNUInstallDirs)
 find_package(Boost COMPONENTS system)
 find_package(Threads)
@@ -15,7 +17,7 @@ add_executable(shorturl ${SRC_LIST} src/server/session.h src/server/session.cpp 
         src/database/redis/redis_database.h src/database/redis/redis_database.cpp
         src/io/logger.cpp src/io/logger.h src/main.cpp)
 
-set(CMAKE_CXX_STANDARD 14)
+
 message(STATUS "C++: ${CMAKE_CXX_COMPILER_VERSION}")
 
 include_directories("libs/cpp-bredis/include")
