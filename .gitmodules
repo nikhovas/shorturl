@@ -1,6 +1,6 @@
-[submodule "libs/googletest"]
-	path = libs/googletest
-	url = https://github.com/google/googletest
 [submodule "libs/cpp-bredis"]
 	path = libs/cpp-bredis
 	url = https://github.com/basiliscos/cpp-bredis
+[submodule "tests/googletest"]
+	path = tests/googletest
+	url = https://github.com/google/googletest
