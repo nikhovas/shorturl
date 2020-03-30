@@ -1,11 +1,11 @@
-#include <boost/beast/core.hpp>
-#include <boost/asio/strand.hpp>
-#include <cstdlib>
-#include "../server/listener.h"
 #include "../config/config.h"
-#include "../responses/responses.hpp"
 #include "../database/redis/redis_database.h"
 #include "../io/logger.h"
+#include "../responses/responses.hpp"
+#include "../server/listener.h"
+#include <boost/asio/strand.hpp>
+#include <boost/beast/core.hpp>
+#include <cstdlib>
 
 class application {
 public:
@@ -17,7 +17,7 @@ public:
     static void init(const std::string& filename);
     static application& get();
     static int main(const std::string& filename);
-//private:
+    //private:
     boost::asio::io_context ioc_;
     listener listener_;
     html_templates html_templates_;

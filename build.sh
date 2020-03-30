@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 case $1 in
- "debug") BUILD_FOLDER="./cmake-build-debug" ;;
- *)       BUILD_FOLDER="./cmake-build" ;;
+ "debug") BUILD_FOLDER_SUFFIX="debug" ;;
+ *)       BUILD_FOLDER_SUFFIX="release" ;;
 esac
-SOURCE_FOLDER="."
+BUILD_FOLDER=./cmake-build-${BUILD_FOLDER_SUFFIX}/
 
-cmake -B ${BUILD_FOLDER} -S ${SOURCE_FOLDER}
+mkdir -p ${BUILD_FOLDER}
 cd ${BUILD_FOLDER}
+cmake ../
 make
 cd ..

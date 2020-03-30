@@ -1,24 +1,24 @@
 #pragma once
 
+#include <boost/asio/dispatch.hpp>
+#include <boost/asio/strand.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/version.hpp>
-#include <boost/asio/dispatch.hpp>
-#include <boost/asio/strand.hpp>
 #include <cstdlib>
 #include <iostream>
+#include <map>
 #include <memory>
 #include <string>
 #include <thread>
 #include <vector>
-#include <map>
 
 #include "../responses/responses.hpp"
 
-namespace beast = boost::beast;         // from <boost/beast.hpp>
-namespace http = beast::http;           // from <boost/beast/http.hpp>
-namespace net = boost::asio;            // from <boost/asio.hpp>
-using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
+namespace beast = boost::beast; // from <boost/beast.hpp>
+namespace http = beast::http; // from <boost/beast/http.hpp>
+namespace net = boost::asio; // from <boost/asio.hpp>
+using tcp = boost::asio::ip::tcp; // from <boost/asio/ip/tcp.hpp>
 
 void fail(beast::error_code ec, char const* what);
 
@@ -31,6 +31,7 @@ public:
     void on_write(bool close, beast::error_code ec, std::size_t bytes_transferred);
     void do_close();
     void on_handle_db_answer(std::string&& res);
+
 private:
     beast::tcp_stream stream_;
     beast::flat_buffer buffer_;

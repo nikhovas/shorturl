@@ -1,23 +1,23 @@
 #pragma once
 
+#include <boost/foreach.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/json_parser.hpp>
-#include <boost/foreach.hpp>
 
+#include <boost/asio/strand.hpp>
+#include <boost/beast/core.hpp>
+#include <cstdlib>
 #include <string>
-#include <boost/beast/core.hpp>
-#include <boost/asio/strand.hpp>
-#include <cstdlib>
 #include <vector>
 
-#include <boost/beast/core.hpp>
+#include "config_elements.h"
 #include <boost/asio/strand.hpp>
+#include <boost/beast/core.hpp>
 #include <cstdlib>
 #include <vector>
-#include "config_elements.h"
 
 struct config {
     explicit config(const std::string& filename = "config.json");

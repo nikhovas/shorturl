@@ -1,6 +1,9 @@
 #include "listener.h"
 
-listener::listener(net::io_context& ioc, tcp::endpoint endpoint) : ioc_(ioc), acceptor_(net::make_strand(ioc)) {
+listener::listener(net::io_context& ioc, tcp::endpoint endpoint)
+    : ioc_(ioc)
+    , acceptor_(net::make_strand(ioc))
+{
     beast::error_code ec;
 
     acceptor_.open(endpoint.protocol(), ec);
@@ -28,12 +31,14 @@ listener::listener(net::io_context& ioc, tcp::endpoint endpoint) : ioc_(ioc), ac
     }
 }
 
-void listener::run() {
+void listener::run()
+{
     acceptor_.async_accept(net::make_strand(ioc_),
-                           beast::bind_front_handler(&listener::on_accept, this));
+        beast::bind_front_handler(&listener::on_accept, this));
 }
 
-void listener::on_accept(beast::error_code ec, tcp::socket socket) {
+void listener::on_accept(beast::error_code ec, tcp::socket socket)
+{
     if (ec) {
         fail(ec, "accept");
     } else {
