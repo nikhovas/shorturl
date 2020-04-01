@@ -1,26 +1,28 @@
 #include "gtest/gtest.h"
+#include "bredis/Connection.hpp"
+#include "bredis/MarkerHelpers.hpp"
+#include <boost/asio.hpp>
+#include <bredis/Extract.hpp>
 
-class RedisConnectionTesting : public ::testing::Test
-{
-protected:
-    void SetUp()
-    {
-        foo = new int;
-        *foo = 5;
-    }
-    void TearDown()
-    {
-        delete foo;
-    }
-    int *foo;
-};
+using Iterator = typename bredis::to_iterator<boost::asio::streambuf>::iterator_t;
+using result_t = bredis::parse_result_mapper_t<Iterator, bredis::parsing_policy::keep_result>;
 
-TEST_F(RedisConnectionTesting, test_name)
+TEST(Prepairing, RedisConnection)
 {
-    ASSERT_EQ(*foo, 5) << "1 is not equal 0";
-}
+    boost::asio::io_context io_service;
+    boost::asio::ip::tcp::endpoint end_point(boost::asio::ip::address::from_string(REDIS_IP), REDIS_PORT);
+    boost::asio::ip::tcp::socket socket(io_service, end_point.protocol());
+    boost::asio::streambuf tx_buff, rx_buff;
+    ASSERT_NO_THROW(socket.connect(end_point));
 
-TEST_F(RedisConnectionTesting, test_name_2)
-{
-    ASSERT_EQ(*foo, 5) << "1 is not equal 0";
+    bredis::Connection<boost::asio::ip::tcp::socket> c(std::move(socket));
+    c.async_write(tx_buff, bredis::single_command_t{"llen", "my-queue"}, [&](const boost::system::error_code &ec, std::size_t bytes_transferred) {
+        ASSERT_EQ(ec.value(), 0);
+        tx_buff.consume(bytes_transferred);
+        c.async_read(rx_buff, [&](const boost::system::error_code &ec, result_t &&r) {
+            auto extract = boost::apply_visitor(bredis::extractor<Iterator>(), r.result);
+            ASSERT_EQ(boost::get<bredis::extracts::int_t>(extract), 0);
+            rx_buff.consume(r.consumed);
+        });
+    });
 }

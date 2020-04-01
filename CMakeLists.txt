@@ -4,7 +4,7 @@ project(shorturl)
 set(CMAKE_CXX_STANDARD 17)
 
 include(GNUInstallDirs)
-find_package(Boost 1.72 COMPONENTS system REQUIRED)
+find_package(Boost 1.67 COMPONENTS system REQUIRED)
 find_package(Threads)
 
 set(SOURCE_FILES "src/server/session.cpp" "src/server/listener.cpp" "src/responses/responses.cpp"
